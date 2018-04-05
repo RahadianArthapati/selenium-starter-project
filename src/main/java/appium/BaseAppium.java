@@ -1,7 +1,9 @@
 package appium;
 
+import com.paulhammant.ngwebdriver.NgWebDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -24,7 +26,16 @@ public class BaseAppium {
         capabilities.setCapability("appActivity","HomeScreenActivity");
 
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         return driver;
     }
+
+    public static NgWebDriver NgCapabilities() throws MalformedURLException {
+        ChromeDriver chromeDriver = new ChromeDriver();
+        NgWebDriver driver = new NgWebDriver(chromeDriver);
+        driver.waitForAngular2RequestsToFinish();
+        return driver;
+    }
+
+
 }
